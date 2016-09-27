@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 var Button = require('./Button');
 
 var Talker = React.createClass({
-  talk: function () {
+  handleClick: function () {
     for (var speech = '', i = 0; i < 10000; i++) {
       speech += 'blah ';
     }
@@ -11,7 +11,7 @@ var Talker = React.createClass({
   },
   
   render: function () {
-    return <Button letsTalk = {this.talk} />;
+    return <Button onClick = {this.handleClick} />;
   }
 });
 
