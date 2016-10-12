@@ -1,16 +1,16 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var MyThing = require('./components/App.js');
-
+var FilterableProductTable = require('./components/FilterableProductTable.js');
+var SearchBar = require('./components/SearchBar.js')
 
 var AnotherThing = React.createClass({
     render: function() {
         return (
-            <div>And another thing...</div>
-        );
+                <FilterableProductTable.FilterableProductTable />
+            );
     }
 });
 
-ReactDOM.render(<MyThing />, document.getElementById('thing'));
-ReactDOM.render(<AnotherThing />, document.getElementById('thing2'));
+ReactDOM.render(<AnotherThing />, document.getElementById('go-go-gadget-react'));
 

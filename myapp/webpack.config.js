@@ -25,7 +25,7 @@ module.exports = {
     },
     
     output: {
-        filename: 'tranformed.js',
+        filename: 'transformed.js',
         path: __dirname + '/build'
     },
     
