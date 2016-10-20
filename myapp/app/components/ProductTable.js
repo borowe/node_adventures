@@ -5,15 +5,32 @@ var ProductTable = React.createClass({
         
         var rows = [];
         var lastCategory = null;
+        var filterChars = this.props.filterText;
+        var stocker = this.props.inStockOnly;
         
         this.props.products.forEach(function(product) {
+            
             
             if(product.category !== lastCategory) {
                 rows.push(<ProductCategoryRow category={product.category} key={product.category} />);
             }
-            lastCategory = product.category;
             
-            rows.push(<ProductRow product={product} key={product.name} />);
+
+            if(product.name.indexOf(filterChars) !== -1){
+                if(stocker == false){
+                    rows.push(<ProductRow dingle={filterChars} product={product} key={product.name} />);
+                } else {
+                    if(product.stocked == true){
+                        rows.push(<ProductRow product={product} key={product.name} />);
+                    } else {
+                        return;
+                    }
+                }
+            } else {
+                return;
+            }
+            
+            lastCategory = product.category;
             
         });
         
@@ -49,27 +66,23 @@ var ProductCategoryRow = React.createClass({
 
 
 var ProductRow = React.createClass({
+
     render: function() {
-        
-        switch(this.props.product.stocked) {
-            case 'false': 
-                return (
-                    <tr>
-                        <td color="red">{this.props.product.name}</td>
-                        <td color="red">{this.props.product.price}</td>
-                    </tr> 
-                );
-            break;
-            
-            case 'true':
-                return (
-                    <tr>
-                        <td>{this.props.product.name}</td>
-                        <td>{this.props.product.price}</td>
-                    </tr>
-                );
-            break;
+    
+        var styles;
+
+        if(this.props.product.stocked == false){
+            styles = { color: 'red' };
+        } else {
+            styles = { color: '' };
         }
+
+        return (
+            <tr>
+                <td style={styles}>{this.props.product.name}</td>
+                <td style={styles}>{this.props.product.price}</td>
+            </tr> 
+            );
     }
 });
 

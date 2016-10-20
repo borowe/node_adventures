@@ -28983,12 +28983,26 @@
 	var FilterableProductTable = React.createClass({
 	    displayName: 'FilterableProductTable',
 
+
+	    handleChange: function (e) {
+	        this.setState({
+	            filterText: e.target.value
+	        });
+	    },
+
+	    getInitialState: function () {
+	        return {
+	            filterText: '',
+	            inStockOnly: false
+	        };
+	    },
+
 	    render: function () {
 	        return React.createElement(
 	            'div',
 	            null,
-	            React.createElement(Searchbar, null),
-	            React.createElement(ProductTable, { products: PRODUCTS })
+	            React.createElement(Searchbar, { filterText: this.state.filterText, onChange: this.handleChange }),
+	            React.createElement(ProductTable, { filterText: this.state.filterText, inStockOnly: this.state.inStockOnly, products: PRODUCTS })
 	        );
 	    }
 	});
@@ -29008,7 +29022,12 @@
 	        return React.createElement(
 	            "div",
 	            null,
-	            React.createElement("input", { type: "text", defaultValue: "Search..." }),
+	            React.createElement("input", { type: "text", defaultValue: this.props.filterText, onChange: this.props.onChange, value: this.props.filterText }),
+	            React.createElement(
+	                "div",
+	                null,
+	                this.props.filterText
+	            ),
 	            React.createElement("br", null),
 	            React.createElement(
 	                "label",
@@ -29036,14 +29055,20 @@
 	        var rows = [];
 	        var lastCategory = null;
 
-	        this.props.products.foreach(function (product) {
+	        this.props.products.forEach(function (product) {
+
+	            if (product.name.indexOf(this.props.filterText) == -1) {
+	                return;
+	            } else {
+	                rows.push(React.createElement(ProductRow, { product: product, key: product.name }));
+	            }
 
 	            if (product.category !== lastCategory) {
-	                rows.push(React.createElement(ProductCategoryRow, { category: product.category, key: product.key }));
+	                rows.push(React.createElement(ProductCategoryRow, { category: product.category, key: product.category }));
 	            }
 	            lastCategory = product.category;
 
-	            rows.push(React.createElement(ProductRow, { product: product, key: product.name }));
+	            //rows.push(<ProductRow product={product} key={product.name} />);
 	        });
 
 	        return React.createElement(
@@ -29090,7 +29115,11 @@
 	            React.createElement(
 	                'td',
 	                null,
-	                this.props.category
+	                React.createElement(
+	                    'b',
+	                    null,
+	                    this.props.category
+	                )
 	            )
 	        );
 	    }
@@ -29099,19 +29128,29 @@
 	var ProductRow = React.createClass({
 	    displayName: 'ProductRow',
 
+
 	    render: function () {
+
+	        var styles;
+
+	        if (this.props.product.stocked == false) {
+	            styles = { color: 'red' };
+	        } else {
+	            styles = { color: '' };
+	        }
+
 	        return React.createElement(
 	            'tr',
 	            null,
 	            React.createElement(
 	                'td',
-	                null,
-	                this.props.product
+	                { style: styles },
+	                this.props.product.name
 	            ),
 	            React.createElement(
 	                'td',
-	                null,
-	                this.props.key
+	                { style: styles },
+	                this.props.product.price
 	            )
 	        );
 	    }

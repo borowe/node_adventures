@@ -13,11 +13,32 @@ var PRODUCTS = [
 
 
 var FilterableProductTable = React.createClass({
+    
+    handleChange1: function(e) {
+        this.setState({
+            filterText: e.target.value,
+        });
+    },
+    
+    handleChange2: function(e) {
+        this.setState({
+            inStockOnly: e.target.checked,
+        });
+    },
+    
+    
+    getInitialState: function() {
+        return {
+            filterText: '',
+            inStockOnly: false
+        }
+    },
+    
     render: function() {
         return (
             <div>
-                <Searchbar />
-                <ProductTable products={PRODUCTS} />
+                <Searchbar filterText={this.state.filterText} inStockOnly= { this.state.inStockOnly } onChange1={this.handleChange1} onChange2={this.handleChange2} />
+                <ProductTable filterText= { this.state.filterText } inStockOnly = { this.state.inStockOnly } products={PRODUCTS} />
             </div>
             );
     }
