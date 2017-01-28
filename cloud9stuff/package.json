@@ -1,0 +1,27 @@
+{
+  "name": "Bobs App",
+  "version": "0.0.0",
+  "description": "A Simple React App",
+  "main": "index.js",
+  "repository": "",
+  "author": "Bob Rowe",
+  "dependencies": {
+    "async": "~0.2.8",
+    "express": "~3.2.4",
+    "react-dom": "^15.3.2",
+    "socket.io": "~0.9.14",
+    "react": "~15.3.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-react": "^6.16.0",
+    "html-webpack-plugin": "^2.22.0",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  }
+}
