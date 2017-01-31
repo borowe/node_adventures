@@ -1,13 +1,11 @@
 This is a working example of Facebook's React Tutorial.
 
-If you freshly git cloned this app don't forget to run...
 
-"npm update" to update/install all the package dependencies found in the package.json
+If you freshly git cloned this app don't forget to run the following:
 
-I think you could also run "npm install" alternatively.
+1.  "npm update" to update/install all the package dependencies found in the package.json
 
+2.  "npm run build", which will build the app
 
-Then run "npm run build", which will build the app
-
-Then run "npm run start", which will start serving the app
+3.  "npm run start", which will start serving the app
 
